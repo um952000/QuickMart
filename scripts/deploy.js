@@ -12,12 +12,10 @@ const tokens = (n) => {
 }
 
 async function main() {
-
-  //Code goes here...........
   // Setup accounts
   const [deployer] = await ethers.getSigners()
 
-  // Deploy QuickMart
+  // Deploy Dappazon
   const Dappazon = await hre.ethers.getContractFactory("Dappazon")
   const dappazon = await Dappazon.deploy()
   await dappazon.deployed()

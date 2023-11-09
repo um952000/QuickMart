@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
-
-pragma solidity >=0.5.0 <0.9.0;
+pragma solidity ^0.8.9;
 
 contract Dappazon {
-    address public owner; //a state variable.
+    address public owner;
 
-    // arbitrary data type for our item........
     struct Item {
         uint256 id;
         string name;
@@ -21,29 +19,21 @@ contract Dappazon {
         Item item;
     }
 
-    //creating mapping for Item struct to its differnet values(items)
     mapping(uint256 => Item) public items;
-
-    //mapping for orderCount
-    mapping(address => uint256) public orderCount;
-
-    //mapping for quantity of each no of order..........
     mapping(address => mapping(uint256 => Order)) public orders;
+    mapping(address => uint256) public orderCount;
 
     event Buy(address buyer, uint256 orderId, uint256 itemId);
     event List(string name, uint256 cost, uint256 quantity);
 
-    // restrictiong list to only to the owner of the marketplace
     modifier onlyOwner() {
         require(msg.sender == owner);
         _;
     }
 
     constructor() {
-        owner = msg.sender; // this is the person who is deploying the smart contract
+        owner = msg.sender;
     }
-
-    //LIST Products
 
     function list(
         uint256 _id,
@@ -54,8 +44,7 @@ contract Dappazon {
         uint256 _rating,
         uint256 _stock
     ) public onlyOwner {
-        //Create item struct (creating a new item)
-
+        // Create Item
         Item memory item = Item(
             _id,
             _name,
@@ -66,43 +55,39 @@ contract Dappazon {
             _stock
         );
 
-        //Save item struct(Item) to blockchain
+        // Add Item to mapping
+        items[_id] = item;
 
-        items[_id] = item; // an array of differnet items
-
-        //Emit an event in the blockchain
+        // Emit event
         emit List(_name, _cost, _stock);
     }
 
-    //Buy Products
-    //payble is used to send the ether
     function buy(uint256 _id) public payable {
-        //Fetch item
+        // Fetch item
         Item memory item = items[_id];
 
-        //Require enough ether to buy an item
+        // Require enough ether to buy item
         require(msg.value >= item.cost);
 
-        //Create and order (each order has unique timestamp related to it)
+        // Require item is in stock
+        require(item.stock > 0);
+
+        // Create order
         Order memory order = Order(block.timestamp, item);
 
-        //Add order for user
-        orderCount[msg.sender]++; //<-- Order ID
+        // Add order for user
+        orderCount[msg.sender]++; // <-- Order ID
         orders[msg.sender][orderCount[msg.sender]] = order;
 
         // Subtract stock
         items[_id].stock = item.stock - 1;
 
-        //Emit event
+        // Emit event
         emit Buy(msg.sender, orderCount[msg.sender], item.id);
     }
-
-    //Withdraw funds
 
     function withdraw() public onlyOwner {
         (bool success, ) = owner.call{value: address(this).balance}("");
         require(success);
     }
 }
-
-//........................................

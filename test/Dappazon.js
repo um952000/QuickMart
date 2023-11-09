@@ -1,11 +1,10 @@
 const { expect } = require("chai")
 
-//ether to gwei conversion...........
 const tokens = (n) => {
   return ethers.utils.parseUnits(n.toString(), 'ether')
 }
 
-//Global variables for the item
+// Global constants for listing an item...
 const ID = 1
 const NAME = "Shoes"
 const CATEGORY = "Clothing"
@@ -14,77 +13,50 @@ const COST = tokens(1)
 const RATING = 4
 const STOCK = 5
 
-describe("Dappazon", function() {
+describe("Dappazon", () => {
+  let dappazon
+  let deployer, buyer
 
-    let dappazon
-    let deployer, buyer
+  beforeEach(async () => {
+    // Setup accounts
+    [deployer, buyer] = await ethers.getSigners()
 
-
- // i want to deploy this contract only once...........
-  beforeEach(async()=>{
-
-    //setUp accounts
-    [deployer, buyer]= await ethers.getSigners();
-    //console.log(deployer.address,buyer.address);
-
-    //Deploying contract................
-    const Dappazon = await ethers.getContractFactory("Dappazon");// instance contract
-    dappazon = await Dappazon.deploy(); // deploy contract
- 
+    // Deploy contract
+    const Dappazon = await ethers.getContractFactory("Dappazon")
+    dappazon = await Dappazon.deploy()
   })
 
-  describe("Deployment",()=>{
-
-    it("Sets the owner", async ()=>{   
-      expect(await dappazon.owner()).to.equal(deployer.address);
+  describe("Deployment", () => {
+    it("Sets the owner", async () => {
+      expect(await dappazon.owner()).to.equal(deployer.address)
     })
-
   })
 
-  
-  describe("Listing",()=>{
+  describe("Listing", () => {
+    let transaction
 
-      let transaction
-    
-
-    beforeEach(async() =>{
-
-      transaction = await dappazon.connect(deployer).list(
-        ID,
-        NAME,
-        CATEGORY,
-        IMAGE,
-        COST,
-        RATING,
-        STOCK
-      )
-
+    beforeEach(async () => {
+      // List a item
+      transaction = await dappazon.connect(deployer).list(ID, NAME, CATEGORY, IMAGE, COST, RATING, STOCK)
       await transaction.wait()
-  })
-
-    it("Returns item attributes", async ()=>{   
-      
-         const item = await dappazon.items(ID)
-         
-         expect(item.id).to.equal(ID)
-         expect(item.name).to.equal(NAME)
-         expect(item.category).to.equal(CATEGORY)
-         expect(item.image).to.equal(IMAGE)
-         expect(item.cost).to.equal(COST)
-         expect(item.rating).to.equal(RATING)
-         expect(item.stock).to.equal(STOCK)
-
     })
 
-    it("Emits List event",()=>{
-        
-        expect(transaction).to.emit(dappazon,"List")
+    it("Returns item attributes", async () => {
+      const item = await dappazon.items(ID)
+
+      expect(item.id).to.equal(ID)
+      expect(item.name).to.equal(NAME)
+      expect(item.category).to.equal(CATEGORY)
+      expect(item.image).to.equal(IMAGE)
+      expect(item.cost).to.equal(COST)
+      expect(item.rating).to.equal(RATING)
+      expect(item.stock).to.equal(STOCK)
     })
 
+    it("Emits List event", () => {
+      expect(transaction).to.emit(dappazon, "List")
+    })
   })
-
-
-  //.............................................................................................. 
 
   describe("Buying", () => {
     let transaction
@@ -123,7 +95,6 @@ describe("Dappazon", function() {
   })
 
   describe("Withdrawing", () => {
-    
     let balanceBefore
 
     beforeEach(async () => {

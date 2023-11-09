@@ -1,4 +1,4 @@
-# QuickMart
+# Dappazon
 
 ## Technology Stack & Tools
 
@@ -9,22 +9,23 @@
 - [React.js](https://reactjs.org/) (Frontend Framework)
 
 ## Requirements For Initial Setup
-
 - Install [NodeJS](https://nodejs.org/en/)
 
-### 1. Run tests
+## Setting Up
+### 1. Clone/Download the Repository
 
+### 2. Install Dependencies:
+`$ npm install`
+
+### 3. Run tests
 `$ npx hardhat test`
 
-### 2. Start Hardhat node
-
+### 4. Start Hardhat node
 `$ npx hardhat node`
 
-### 3. Run deployment script
-
+### 5. Run deployment script
 In a separate terminal execute:
 `$ npx hardhat run ./scripts/deploy.js --network localhost`
 
-### 4. Start frontend
-
+### 6. Start frontend
 `$ npm run start`
