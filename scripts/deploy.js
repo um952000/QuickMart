@@ -17,7 +17,7 @@ async function main() {
   // Setup accounts
   const [deployer] = await ethers.getSigners()
 
-  // Deploy Dappazon
+  // Deploy QuickMart
   const Dappazon = await hre.ethers.getContractFactory("Dappazon")
   const dappazon = await Dappazon.deploy()
   await dappazon.deployed()
