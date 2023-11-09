@@ -11,15 +11,16 @@ import Dappazon from './abis/Dappazon.json'
 
 // Config
 import config from './config.json'
+import { network } from 'hardhat'
 
 function App() {
 
+  
+
      const [account,setAccount] = useState(null)
 
-  //fetching account and blockchain data
-
     const loadBlockchainData = async () =>{
-      
+    
         
     }
 
@@ -34,8 +35,7 @@ function App() {
 
     <Navigation account={account} setAccount={setAccount}/>
 
-      <h2>Welcome to QuickMart</h2>
-      
+      <h2>QuickMart Best Sellers</h2>
 
     </div>
   );
