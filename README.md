@@ -19,6 +19,6 @@ In a separate terminal execute:
 
 ## //////////////////////////////////////////////////////////////////////////
 
-IN Metamask follow the below procedure
+IN Metamask follow the below procedure before starting the project
 
 option----> settings-----> Advanced----->clear activity tab data
