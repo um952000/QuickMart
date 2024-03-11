@@ -12,11 +12,13 @@ const Navigation = ({ account, setAccount }) => {
             <div className='nav__brand'>
                 <h1>QuickMart</h1>
             </div>
-
+{/* 
             <input
                 type="text"
                 className="nav__search"
-            />
+            /> */}
+
+            <h4>Shop with confidence: Blockchain revolutionizes e-commerce through trust and transparency</h4>
 
             {account ? (
                 <button
@@ -39,6 +41,7 @@ const Navigation = ({ account, setAccount }) => {
                 <li><a href="#Clothing & Jewelry">Clothing & Jewelry</a></li>
                 <li><a href="#Electronics & Gadgets">Electronics & Gadgets</a></li>
                 <li><a href="#Toys & Gaming">Toys & Gaming</a></li>
+                
             </ul>
         </nav>
     );

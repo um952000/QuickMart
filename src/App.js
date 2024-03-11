@@ -13,6 +13,8 @@ import Dappazon from './abis/Dappazon.json'
 // Config
 import config from './config.json'
 
+
+
 function App() {
   const [provider, setProvider] = useState(null)
   const [dappazon, setDappazon] = useState(null)

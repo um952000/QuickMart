@@ -44,14 +44,14 @@ const Footer = () => {
         <p>© 2023 Ethereum. All Rights Reserved.</p>
         <h4>Follow Us</h4>
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/saadamin662/" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-linkedin"></i>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-linkedin-square"></i>
           </a>
-          <a href="https://github.com/saad662" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i>
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-github"></i>
           </a>
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-instagram"></i>
+            <i class="fa fa-instagram"></i>
           </a>
         </div>
       </div>
